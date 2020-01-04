@@ -1,0 +1,34 @@
+@startuml
+
+class Snake{
+    ArrayList positions
+    Arraylist directions
+    Directions lastDir
+    __
+    moveSnake()
+    moveSnake(Direction)
+}
+
+Enum Directions{
+    UP
+    DOWN
+    LEFT
+    RIGHT
+}
+
+class SnakeFrame{
+    SnakePanel
+    __
+
+}
+
+class SnakeGame{
+    Snake snake
+    Apple apple
+    ImagesManager
+    SnakeFrame
+    __
+
+}
+
+@enduml
