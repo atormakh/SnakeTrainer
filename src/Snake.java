@@ -23,7 +23,7 @@ public class Snake {
             positions.add(new Coordinate(half,i));
             directions.add(Directions.RIGHT);
         }
-        lastPlace = new Coordinate(25,0);
+        lastPlace = positions.get(0);
     }
 
     public void move(Directions dir){
@@ -38,6 +38,9 @@ public class Snake {
         }*/
         // ab
         // { i,a,ab}
+        lastPlace = positions.get(0).clone();
+
+
         for(int i= 0 ; i<length -1 ; i++){
             directions.set(i,directions.get(i+1));
         }
@@ -48,6 +51,7 @@ public class Snake {
             Coordinate newPos = original.plus(directions.get(i));
             positions.set(i,newPos);
         }
+
 
     }
 

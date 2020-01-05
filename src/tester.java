@@ -8,19 +8,22 @@ import javafx.stage.Stage;
 public class tester extends Application {
 
     private WebView webView= new WebView();
+    public  static SnakeGame snakeGame;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         launch(args);
+        //snakeGame.startGame();
     }
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-      SnakeGame  snakeGame = new SnakeGame();
+      snakeGame = new SnakeGame();
       SnakeFrame frame = snakeGame.getSnakeFrame();
       Scene scene = new Scene(frame);
       primaryStage.setResizable(false);
       primaryStage.setScene(scene);
       primaryStage.show();
+      snakeGame.startGame();
     }
 }

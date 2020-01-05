@@ -31,6 +31,10 @@ public class Coordinate {
         this.horizontal = horizontal;
     }
 
+    public Coordinate clone(){
+        return new Coordinate(this.getVertical(), this.getHorizontal());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,4 +56,5 @@ public class Coordinate {
                 ", " + horizontal +
                 '}';
     }
+
 }

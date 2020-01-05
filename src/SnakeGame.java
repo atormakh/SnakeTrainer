@@ -6,6 +6,8 @@ import java.beans.EventHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 public class SnakeGame {
 
@@ -17,27 +19,25 @@ public class SnakeGame {
     private DisplayElements[][] cells;
 
 
-    public SnakeGame(){
-        rows = 50;
-        cols = 50;
+    public SnakeGame() throws InterruptedException {
+        rows = 26;
+        cols = 26;
         cells = new DisplayElements[rows][cols];
         fillWithNothing(cells);
         snake = new Snake(rows,cols);
         snakeFrame = new SnakeFrame();
         Random random = new Random();
         currentApple = new Coordinate(random.nextInt(rows),random.nextInt(cols));
-        startGame();
+        //startGame();
 
     }
 
-    public void startGame(){
+    public void startGame() throws InterruptedException {
         while(snakeLost() == false) {
+            TimeUnit.MILLISECONDS.sleep(100);
             updateCells();
             updateUI(cells);
-        snake.move(Directions.RIGHT);
-
-        //snake.move(Directions.RIGHT);
-        //snake.move(Directions.RIGHT);
+            snake.move(Directions.RIGHT);
         }
     }
 
@@ -50,6 +50,7 @@ public class SnakeGame {
         cells[snake.getSnakeHead().getVertical()][snake.getSnakeHead().getHorizontal()] = DisplayElements.SNAKE_HEAD;
         cells[currentApple.getVertical()][currentApple.getHorizontal()] = DisplayElements.APPLE;
         cells[snake.getLastPlace().getVertical()][snake.getLastPlace().getHorizontal()] = DisplayElements.NOTHING;
+        System.out.println("snake: " + snake.getLastPlace());
     }
 
     public void updateUI(DisplayElements[][] cells){
