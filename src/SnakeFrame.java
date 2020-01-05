@@ -1,29 +1,41 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Point2D;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
-import java.util.List;
 
 public class SnakeFrame extends VBox {
 
     private static final int CELL_SIZE = 12;
     private SnakePanel snakePanel;
+    private SnakeGame snakeGame;
 
-    public SnakeFrame(){
+    public SnakeFrame(SnakeGame snakeGame) throws InterruptedException {
+        this.snakeGame = snakeGame;
         getChildren().add(new TextField("Hola loco"));
         snakePanel = new SnakePanel(26,26,CELL_SIZE);
         getChildren().add(snakePanel);
+        this.snakeGame.addListener(new SnakeGameListener() {
+            @Override
+            public void updateGrid(DisplayElements[][] cells) {
+                updatePanel(cells);
+            }
+        });
 
+        addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+           snakeGame.snake.move(Directions.RIGHT);
+           snakeGame.updateCells();
+           snakeGame.updateUI(snakeGame.cells);
+        });
     }
 
     public void updatePanel(DisplayElements[][] grid){
         Timeline timeLine = new Timeline();
-        Duration frameGap = Duration.millis(100);
+        Duration frameGap = Duration.millis(5);
         Duration frameTime = Duration.ZERO;
         for (int i=0; i<26; i++){
             for (int j=0; j<26; j++){

@@ -19,11 +19,11 @@ public class tester extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
       snakeGame = new SnakeGame();
-      SnakeFrame frame = snakeGame.getSnakeFrame();
+      SnakeFrame frame = new SnakeFrame(snakeGame);
       Scene scene = new Scene(frame);
       primaryStage.setResizable(false);
       primaryStage.setScene(scene);
       primaryStage.show();
-      snakeGame.startGame();
+      //snakeGame.startGame();
     }
 }

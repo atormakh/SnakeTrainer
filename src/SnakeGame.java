@@ -12,11 +12,12 @@ import java.util.concurrent.TimeUnit;
 public class SnakeGame {
 
     private SnakeFrame snakeFrame;
-    private Snake snake;
+    public Snake snake;
     private Coordinate currentApple;
     private int rows;
     private int cols;
-    private DisplayElements[][] cells;
+    public DisplayElements[][] cells;
+    private List<SnakeGameListener> listeners = new ArrayList<>();
 
 
     public SnakeGame() throws InterruptedException {
@@ -25,7 +26,6 @@ public class SnakeGame {
         cells = new DisplayElements[rows][cols];
         fillWithNothing(cells);
         snake = new Snake(rows,cols);
-        snakeFrame = new SnakeFrame();
         Random random = new Random();
         currentApple = new Coordinate(random.nextInt(rows),random.nextInt(cols));
         //startGame();
@@ -34,7 +34,7 @@ public class SnakeGame {
 
     public void startGame() throws InterruptedException {
         while(snakeLost() == false) {
-            TimeUnit.MILLISECONDS.sleep(100);
+           // TimeUnit.MILLISECONDS.sleep(100);
             updateCells();
             updateUI(cells);
             snake.move(Directions.RIGHT);
@@ -54,11 +54,11 @@ public class SnakeGame {
     }
 
     public void updateUI(DisplayElements[][] cells){
-        snakeFrame.updatePanel(cells);
+        listeners.forEach((e)-> e.updateGrid(cells));
     }
 
-    public SnakeFrame getSnakeFrame() {
-        return snakeFrame;
+    public void addListener(SnakeGameListener snakeGameListener){
+        listeners.add(snakeGameListener);
     }
 
     public void fillWithNothing(DisplayElements[][] cells){
