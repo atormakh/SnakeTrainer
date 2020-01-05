@@ -15,7 +15,7 @@ public class SnakeGame {
     private int rows;
     private int cols;
     private DisplayElements[][] cells;
-    private EventHandler eventHandler;
+
 
     public SnakeGame(){
         rows = 50;
@@ -26,25 +26,30 @@ public class SnakeGame {
         snakeFrame = new SnakeFrame();
         Random random = new Random();
         currentApple = new Coordinate(random.nextInt(rows),random.nextInt(cols));
-        updateCells();
-        updateUI(cells);
         startGame();
+
     }
 
     public void startGame(){
-        while(snakeLost() == false){
+        while(snakeLost() == false) {
+            updateCells();
+            updateUI(cells);
+        snake.move(Directions.RIGHT);
 
-            snake.move(Directions.UP);
+        //snake.move(Directions.RIGHT);
+        //snake.move(Directions.RIGHT);
         }
     }
 
     public void updateCells(){
         List<Coordinate> positions = snake.getPositions();
-        for (int i=0; i<snake.getLength(); i++){
+        for (int i=0; i<snake.getLength()-1; i++){
             Coordinate actual = positions.get(i);
             cells[actual.getVertical()][actual.getHorizontal()] = DisplayElements.SNAKE;
         }
+        cells[snake.getSnakeHead().getVertical()][snake.getSnakeHead().getHorizontal()] = DisplayElements.SNAKE_HEAD;
         cells[currentApple.getVertical()][currentApple.getHorizontal()] = DisplayElements.APPLE;
+        cells[snake.getLastPlace().getVertical()][snake.getLastPlace().getHorizontal()] = DisplayElements.NOTHING;
     }
 
     public void updateUI(DisplayElements[][] cells){
@@ -73,7 +78,7 @@ public class SnakeGame {
         List<Coordinate> positions = snake.getPositions();
         for(int i= 0; i<snake.getLength(); i++){
             for(int j=0 ; j<snake.getLength(); j++){
-                if (positions.get(i).equals(positions.get(j))){
+                if ( i!=j && positions.get(i).equals(positions.get(j))){
                     return true;
                 }
             }

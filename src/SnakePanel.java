@@ -1,4 +1,5 @@
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -24,5 +25,10 @@ public class SnakePanel extends TilePane {
 
     public void setImage(int row, int column, Image image) {
         cells[row][column].getChildren().add(new ImageView(image));
+    }
+
+    public void setBlackImage(int i, int j) {
+
+        cells[i][j].getChildren().clear();
     }
 }

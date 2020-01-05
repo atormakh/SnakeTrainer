@@ -7,10 +7,11 @@ public class Snake {
     private List<Coordinate> positions;
     private List<Directions> directions;
     private int length;
+    private Coordinate lastPlace;
 
 
     public Snake(int rows, int cols){
-        length =INITIAL_LENGTH;
+        length = INITIAL_LENGTH;
         positions = new ArrayList(length);
         directions = new ArrayList<>(length);
         giveInitialLayout(rows,cols);
@@ -22,9 +23,11 @@ public class Snake {
             positions.add(new Coordinate(half,i));
             directions.add(Directions.RIGHT);
         }
+        lastPlace = new Coordinate(25,0);
     }
 
     public void move(Directions dir){
+/*        lastPlace = positions.get(0);
         Directions aux = directions.get(0);
         directions.set(0,dir);
         Directions aux2;
@@ -32,12 +35,24 @@ public class Snake {
             aux2 = directions.get(i);
             directions.set(i,aux);
             aux = aux2;
+        }*/
+        // ab
+        // { i,a,ab}
+        for(int i= 0 ; i<length -1 ; i++){
+            directions.set(i,directions.get(i+1));
         }
+        directions.set(length-1,dir);
+        //se podria agregar la ultima direccion y desp hacer un directions.remove(index=0) lo cual shiftearia el vector
         for(int i = 0; i<length ; i++){
             Coordinate original = positions.get(i);
             Coordinate newPos = original.plus(directions.get(i));
             positions.set(i,newPos);
         }
+
+    }
+
+    public Coordinate getLastPlace() {
+        return lastPlace;
     }
 
     public void grow(){}

@@ -10,6 +10,11 @@ public enum DisplayElements {
         return image;
     }
 
+    @Override
+    public String toString() {
+        return this.name();
+    }
+
     private String image;
     private int key;
 

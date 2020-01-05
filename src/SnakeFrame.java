@@ -24,6 +24,8 @@ public class SnakeFrame extends VBox {
                 String url = grid[i][j].getImage();
                 if (url != null){
                     snakePanel.setImage(i,j, new Image(url));
+                }else{
+                    snakePanel.setBlackImage(i,j);
                 }
             }
         }
